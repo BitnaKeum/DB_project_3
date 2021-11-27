@@ -3,8 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const session = require('express-session');
+// const session = require('express-session');
 const schedule = require('node-schedule');
+
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
+
 
 var mainRouter = require('./routes/main');
 var registerRouter = require('./routes/register');
@@ -38,6 +43,13 @@ app.set('view engine', 'ejs');
 
 
 app.engine('html', require('ejs').renderFile);
+
+app.use(session({
+  secret: 'asadlfkj!@#!@#dfgasdg',
+  resave: false,
+  saveUninitialized: true,
+  store:new FileStore()
+}))
 
 app.use(logger('dev'));
 app.use(express.json());

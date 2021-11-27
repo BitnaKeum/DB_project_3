@@ -18,17 +18,12 @@ var pool = mysql.createPool({
     password : '1234'
 });
 
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return true;
-  return false;
-};
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(req.user)
-    if(isAuthenticated){
+    console.log(req.session.is_logined)
+    if(req.session.is_logined == true){
         console.log("---------로그인---------");   
         res.render('main_login');
     }
@@ -73,47 +68,17 @@ router.post('/hospital', function(req, res) {
 
 
 
-// var logout = function() {
-//   return function (req, res, next) {
-//       console.log("ger");
-//       req.logout();
-//       req.session.save(function(){
-//         res.redirect('/');
-//       });
-    
-//   };
-// };
-
-
-// router.get('/logout', (req,res)=>{
-//       req.session = null
-//       res.redirect('/');
-// })
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var app2 = express();
-
-
-
-app2.use(passport.initialize());
-app2.use(passport.session());
 
 /* GET Logout function */
 router.get('/logout', function (req, res) {
-  console.log("ghi2")
-  req.session = null;
-  console.log("ghi")
-  res.redirect('/');
+  req.session.is_logined = false;
+
+  req.session.save(function(){
+    res.redirect('/');
+  })
+
 });
 
-
-passport.serializeUser(function(user, done){
-  done(null, user)
-});
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
 
 
 
