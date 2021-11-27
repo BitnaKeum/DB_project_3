@@ -1,10 +1,14 @@
 var express = require('express');
+var app2 = express();
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 // var firebase = require('firebase');
+var flash = require('connect-flash');
 require('date-utils');
-var session = require('express-session');
+
+app2.use(passport.initialize());
+app2.use(passport.session());
 
 
 const mysql      = require('mysql');
@@ -17,42 +21,22 @@ var pool = mysql.createPool({
     password : '1234'
 });
 
-
-// /* firebase Web-App Configuration */
-// var firebase_config = {
-//   apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
-//   authDomain: "lloginexample.firebaseapp.com",
-//   databaseURL: "https://lloginexample.firebaseio.com",
-//   projectId: "lloginexample",
-//   storageBucket: "lloginexample.appspot.com",
-//   messagingSenderId: "124851004056",
-//   appId: "1:124851004056:web:b58239166f9907ce3926ed",
-//   measurementId: "G-CR5E843ZEM"
-// };
-
-// /* Initialize Firebase */
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(firebase_config);
-// }
-// var db = firebase.firestore();  //firestore
-// var fb_auth = firebase.auth();
+var pass;
 
 
 router.get('/emailLogin', function(req, res, next){
   res.render('login');
-
-  console.log(res)
+  console.log("ddrr")
+  // console.log(res)
 })
 
 router.post('/emailLogin', passport.authenticate(
-  'local', {failureRedirect: '/emailLogin', failureFlash: true}),
+  'local',{failureRedirect: '/', failureFlash: true}),
   function(req, res) {
-    console.log("user: " + req.user.id);
-    if(pass)
+      console.log("ddrr")
       res.redirect('/');
-    else
-      res.render('login.ejs', {pass: pass});
   }
+
 );
 
 passport.use(new LocalStrategy({
@@ -64,14 +48,14 @@ passport.use(new LocalStrategy({
     pool.getConnection(function(err, connection){
       var sqlForLoggin = "select m1.ID from client as m1 where exists (select *  From client as q where q.ID = ? and q.PASSWORD = ?)";
       connection.query(sqlForLoggin, params, function(err, rows){
+        console.log(username);
+        console.log(rows.length)
         if(err) {return done(false, null);}
         else {
-          for(var i=0;i <rows.length; i++)
-            console.log(rows[i]);
-          //로그인 성공
-          if(rows.length > 0){
+          if(rows.length != 0){
             pass = true;
-            return done(null, {'user_id': username});
+            console.log("로그인성공");
+            return done(null, null);
           }
           //로그인 실패
           else {
@@ -83,5 +67,14 @@ passport.use(new LocalStrategy({
       });
     });
 }));
+
+passport.serializeUser(function(user, done){
+  done(null, user)
+});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
 
 module.exports = router;

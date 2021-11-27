@@ -26,22 +26,25 @@
      <link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
      <link href="../button_styles.css" rel='stylesheet'>
 
+     
+
   </head>
 
   <body id="page-top">
     <header class="masthead bg-primary text-black">
       <div class="container">
+        <form name="login_submit" method="POST">
         <h3>로그인</h3>
         <br><br>
           <br>
-          <div class="fieldlabel"><label for="id">아이디</label></div>
-          <div class="formfield"><input type="text" id="id" name="id" maxlength="20" value="" required></div>
+          <div class="fieldlabel"><label for="username">아이디</label></div>
+          <div class="formfield"><input type="text" id="username" name="username" maxlength="20" value="" required></div>
           <div id="nickname_check"></div>
           <br>
           <br>
-          <div class="fieldlabel"><label for="userPw">패스워드</label></div>
+          <div class="fieldlabel"><label for="password">패스워드</label></div>
           <div class="formfield">
-            <input type="password" id="userPw" name="userPw" maxlength="20" autocomplete="off" required/>
+            <input type="password" id="password" name="password" maxlength="20" autocomplete="off" required/>
           </div>
           <div id="pw_check"></div>
           <br>
