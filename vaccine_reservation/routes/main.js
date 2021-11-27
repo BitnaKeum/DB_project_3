@@ -18,16 +18,18 @@ var pool = mysql.createPool({
     password : 'password1!'
 });
 
-//var isAuthenticated = function (req, res, next) {
-//  if (req.isAuthenticated())
-//    return true;
-//  return false;
-//};
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('main_login');
+    console.log(req.session.is_logined)
+    if(req.session.is_logined == true){
+        console.log("---------로그인---------");   
+        res.render('main_login', {name:req.session.nickname});
+    }
+    else {
+        console.log("---------유저없음---------");
+        res.render('main_logout');
+    }
 });
 
 
@@ -88,12 +90,14 @@ router.get('/hospital', function(req, res) {
 });
 
 
+/* GET Logout function */
+router.get('/logout', function (req, res) {
+  req.session.is_logined = false;
 
+  req.session.save(function(){
+    res.redirect('/');
+  })
 
-
-
-
-
-
+});
 
 module.exports = router;
