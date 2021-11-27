@@ -13,6 +13,7 @@ var FileStore = require('session-file-store')(session);
 
 var mainRouter = require('./routes/main');
 var registerRouter = require('./routes/register');
+var loginRouter = require('./routes/login');
 var freeboardRouter = require('./routes/freeboard');
 var reservation = require('./routes/reserve');
 var regionboardRouter = require('./routes/regionboard');
@@ -59,6 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRouter);
 app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 app.use('/freeboard', freeboardRouter);
 app.use('/regionboard', regionboardRouter);
 app.use('/mypage', mypageRouter);
