@@ -8,9 +8,9 @@ var pool = mysql.createPool({
     connectionLimit : 100,
     host : 'localhost',
     user : 'root',
-    port:3306,
+    port: 3306,
     database:'vaccine',
-    password : '1234'
+    password : 'password1!'
 });
 
 // const dbconfig   = require('./database.js');

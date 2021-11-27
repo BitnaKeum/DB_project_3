@@ -13,56 +13,78 @@ var pool = mysql.createPool({
     connectionLimit : 100,
     host : 'localhost',
     user : 'root',
-    port:3306,
+    port: 3306,
     database:'vaccine',
-    password : '1234'
+    password : 'password1!'
 });
 
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return true;
-  return false;
-};
+//var isAuthenticated = function (req, res, next) {
+//  if (req.isAuthenticated())
+//    return true;
+//  return false;
+//};
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(req.user)
-    if(isAuthenticated){
-        console.log("---------로그인---------");   
-        res.render('main_login');
-    }
-    else {
-        console.log("---------유저없음---------");
-        res.render('main_logout');
-    }
+    res.render('main_login');
 });
 
 
 /* POST show hospital of selected region */
 router.post('/hospital', function(req, res) {
-    region = "서울특별시 " + req.query.region;
+    region = req.query.region;
     console.log(region);
+    
+    var page = Number(req.query.page);
+    if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌
+        page = 1;
+    }
     
     pool.getConnection(function (err, connection)
     {
-      var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '?region?'%";
-      connection.query(sqlForGetHospital, datas, function(err, rows){
-          if(err) console.error("err : " + err);
-          console.log("rows: " + JSON.stringify(rows));
-  
-          res.redirect('/');
-          connection.release();
-      });
+        if (err) {throw err};
+        
+        var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '서울특별시 " + region + "%'";
 
+        connection.query(sqlForGetHospital, function(err, rows){
+            if(err) console.error("error : " + err);
+            hospitals_str = JSON.stringify(rows);
+            hospitals = JSON.parse(hospitals_str);
+            res.render('hospital', {region: region, hospitals: hospitals, page: page}); 
+        });
+        
+        connection.release();
     });
+ 
+});
 
+/* GET show hospital of selected region */
+router.get('/hospital', function(req, res) {
+    region = req.query.region;
+    console.log(region);
     
+    var page = Number(req.query.page);
+    if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌
+        page = 1;
+    }
     
-    
-    
-    
-    
+    pool.getConnection(function (err, connection)
+    {
+        if (err) {throw err};
+        
+        var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '서울특별시 " + region + "%'";
+
+        connection.query(sqlForGetHospital, function(err, rows){
+            if(err) console.error("error : " + err);
+            hospitals_str = JSON.stringify(rows);
+            hospitals = JSON.parse(hospitals_str);
+            res.render('hospital', {region: region, hospitals: hospitals, page: page}); 
+        });
+        
+        connection.release();
+    });
+ 
 });
 
 
@@ -71,49 +93,6 @@ router.post('/hospital', function(req, res) {
 
 
 
-
-
-// var logout = function() {
-//   return function (req, res, next) {
-//       console.log("ger");
-//       req.logout();
-//       req.session.save(function(){
-//         res.redirect('/');
-//       });
-    
-//   };
-// };
-
-
-// router.get('/logout', (req,res)=>{
-//       req.session = null
-//       res.redirect('/');
-// })
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var app2 = express();
-
-
-
-app2.use(passport.initialize());
-app2.use(passport.session());
-
-/* GET Logout function */
-router.get('/logout', function (req, res) {
-  console.log("ghi2")
-  req.session = null;
-  console.log("ghi")
-  res.redirect('/');
-});
-
-
-passport.serializeUser(function(user, done){
-  done(null, user)
-});
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
 
 
 

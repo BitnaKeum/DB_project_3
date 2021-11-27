@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>의료기관 찾기</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
+    <link href="../button_styles.css" rel='stylesheet'>
+  	<link href="../css/bootstrap.css" rel='stylesheet'>
+</head>
+    
+<body id="page-top">
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">Needs</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-fixed Black rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">자유게시판</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">My Page</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">알림</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    
+    <!-- Portfolio Grid Section -->
+    
+    <section class="portfolio" id="portfolio">
+        <div class="container" style="padding-top:70px">
+            <h3 class="text-center text-uppercase">서울특별시 <%= region %></h3>
+            <br><br>
+    
+            <%
+            if(hospitals.length != 0) {  // 글이 존재할 경우
+                var pageNum = (hospitals.length%10==0) ? parseInt(hospitals.length/10) : parseInt(hospitals.length/10)+1; // 총 페이지 수 계산 
+            %>            
+                
+            
+                <table class="table table-hover">
+                    
+                    <colgroup>
+                        <col width='25%' />
+                        <col width='*%' />
+                        <col width='20%' />
+                    </colgroup>
+                    
+                    <thead>        
+                        <tr>
+                            <th><center>의료기관명</center></th>
+                            <th><center>위치</center></th>
+                            <th><center>전화번호</center></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%
+                        if (page != pageNum) {  // 마지막 페이지가 아닌 경우
+                            for(var i=(page-1)*10; i<page*10; i++) {
+                        %>    
+                        <tr>
+                            <td style="text-align:center"><%=hospitals[i]['HOSPITAL_NAME']%></td>
+                            <td style="text-align:center"><%=hospitals[i]['LOCATION']%></td>
+                            <td style="text-align:center"><%=hospitals[i]['HOSPITAL_HP']%></td>
+                        </tr>
+                        <%
+                            }
+                        }
+                        %>          
+                        <%
+                        if (page == pageNum) { //else문,  마지막 페이지
+                            for(var i=(page-1)*10; i<hospitals.length; i++) {
+                        %>   
+                        <tr>
+                            <td style="text-align:center"><%=hospitals[i]['HOSPITAL_NAME']%></td>
+                            <td style="text-align:center"><%=hospitals[i]['LOCATION']%></td>
+                            <td style="text-align:center"><%=hospitals[i]['HOSPITAL_HP']%></td>
+                        </tr>        
+                        <%
+                        }
+                        }
+                        %>    
+                    </tbody>
+                    
+                </table>
+                <br><hr/>
+
+            
+                <!-- pagination -->
+                <div class="text-center" style="display:table; margin: auto">
+                    <ol class="pagination">
+                        
+                        <%
+                        if (parseInt((page-1)/10)*10+1 != 1) {    // 1~10페이지가 보이는 경우가 아니면 이전 버튼 출력
+                        %>  
+                        <a href="hospital?region=<%=region%>&page=<%=parseInt((page-1)/10)*10%>" style="color: black; font-size: 18px; font-weight: bold; padding: 10px">〈 </a> 
+                        <%
+                        }
+                        %>   
+                        
+                        <%
+                        for(var i=parseInt((page-1)/10)*10+1; i<=parseInt((page-1)/10)*10+10; i++) {
+                            if(i > pageNum) {   // 마지막 페이지 번호까지 출력했으면 break
+                                break;
+                            }
+                        %>
+                        <a href="hospital?region=<%=region%>&page=<%=i%>" style="color: black; font-size: 18px; padding: 10px">
+                        
+                        <% if(i == page) { // 현재 페이지는 진하게 표시 %>
+                             <span style="color:#1169e1; font-weight:bold;"><%= i %></span>
+                        <% } 
+                           else { %>
+                             <%= i %>
+                        <% } %>  
+                        
+                        <%
+                        }
+                        %>
+                        </a>
+                        
+                        <%
+                        if (parseInt((page-1)/10)*10+10 < pageNum) { // 해당 페이지에서 보이는 다섯 페이지의 다음 페이지가 존재하는 경우 다음 버튼 출력
+                        %>
+                        <a href="hospital?region=<%=region%>&page=<%=(parseInt((page-1)/10)+1)*10+1%>" style="color: black; font-size: 18px; font-weight: bold; padding: 10px"> 〉</a>  
+                        <%
+                        }                                     
+                        %>    
+                        
+                    </ol>
+                </div>
+            <%
+            }
+            
+            else {  // 의료기관이 없을 경우
+            %>    
+                <br><br><center>가능한 의료 기관이 없습니다.</center><br><br><br><br>  
+            <%
+            }
+            %>    
+                
+            
+            <!-- 돌아가기 버튼 -->
+             <form name="main" action="/" method="get">
+                <button class="btn btn-primary btn-xl pull-right" style="background: #18bc9c; width: 120px; height: 50px">돌아가기</button>
+            </form>
+            
+        </div>
+      </section>                
+
+      
+</body>
+</html>
