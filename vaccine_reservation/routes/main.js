@@ -7,24 +7,18 @@ var moment = require('moment');
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
 
-// const mysql      = require('mysql');
-// const connection = mysql.createConnection({
-//   host     : 'localhost',
-//   user     : 'root',
-//   password : '1234',
-//   database : 'vaccine'
-// });
-
-// connection.connect();
-
-// connection.query('SELECT * from client', (error, rows, fields) => {
-//   if (error) throw error;
-//   console.log('User info is: ', rows);
-// });
 
 
+const mysql = require('mysql');
+var pool = mysql.createPool({
+    connectionLimit : 100,
+    host : 'localhost',
+    user : 'root',
+    port:3306,
+    database:'vaccine',
+    password : '1234'
+});
 
-// connection.end();
 
 /* firebase Web-App Configuration */
 var firebase_config = {
@@ -48,18 +42,16 @@ var db = firebase.firestore();  //firestore
 router.get('/', function(req, res, next) {
   var user = firebase.auth().currentUser;
 
-  if(user){
-    console.log("---------로그인---------");   
+  if (user)
+  {
+    console.log("---------로그인 후 메인---------");   
     var uid = user.uid;
     var freeData_ref = db.collection("freeData").orderBy("good_num", "desc");
-    var freeData_timeref = db.collection("freeData").orderBy("day", "desc");
     var data_ref = db.collection("data").doc("allData");
     var user_ref = db.collection("user").doc(uid);
 
     var freebestpost = [];
-    var freetimepost = [];
-    var regionbestpost = [];
-    var regiontimepost = [];
+
     //자유게시판 좋아요 순으로 정렬
     freeData_ref.get().then((freepostsnap) => {
       if(freepostsnap){
@@ -69,80 +61,66 @@ router.get('/', function(req, res, next) {
           if(i<=4){
             freebestpost.push(freesnap.data());
           }
-        })
-        //자유게시판 최신순으로 정렬
-        freeData_timeref.get().then((freepostsnap2) => {
-          if(freepostsnap2){
-            var k = 0;
-            freepostsnap2.forEach((freesnap2) => {
-              k++;
-              if(k<=4){
-                var freesnap2_data = freesnap2.data();
-                freesnap2_data.day = moment(freesnap2_data.day).format("MM/DD HH:mm:ss");
-                freetimepost.push(freesnap2_data);
-              }
-            });
-            // user 데이터로부터 지역 가져옴
-            user_ref.get().then((doc) => {
-              var data = doc.data();  //사용자 정보
-              var region = data.id_region;
-
-              // 사용자 지역의 인기글을 좋아요 순으로 읽어옴
-              data_ref.collection(region).orderBy("good_num", "desc").get()
-                .then((regionpostsnap) => {
-                  if(regionpostsnap){
-                    var j = 0;
-                    regionpostsnap.forEach((regionsnap) => {
-                      j++;
-                      if(j<=4){
-                        regionbestpost.push(regionsnap.data());
-                      }
-                    });
-                    
-                    data_ref.collection(region).orderBy("day", "desc").get().then((regionpostsnap2) => {
-                      if(regionpostsnap2){
-                        var l = 0;
-                        regionpostsnap2.forEach((regionsnap2) => {
-                          l++;
-                          if(l<=4){
-                            var regionsnap2_data = regionsnap2.data();
-                            regionsnap2_data.day = moment(regionsnap2_data.day).format("MM/DD HH:mm:ss");
-                            regiontimepost.push(regionsnap2_data);
-                          }
-                        });
-                        //4가지 섹션대로.
-                        res.render('main_login', {region: region, fbp: freebestpost, ftp: freetimepost, rbp: regionbestpost, rtp: regiontimepost});
-                      }
-                    });
-
-                    // pointDay, pointLimit
-                    var id_email = data.id_email;
-                    var user_pointDay_ref = user_ref.collection('pointDay').doc(id_email+'pointDay');
-                    user_pointDay_ref.get()
-                      .then((doc2) => {
-                        // pointDay와 오늘 날짜가 다르면 pointDay를 오늘 날짜로 변경
-                        var pointDay = doc2.data().pointDay;
-                        
-                        var nowDate = new Date();
-                        var today = nowDate.toFormat('DD');
-                      
-                        if(pointDay != today) {
-                            user_pointDay_ref.update( {pointDay: today, pointLimit: "5"} );
-                        }
-                    });
-                  }
-                });
-            });
-          }
+        });
+          
+        // user 데이터로부터 지역 가져옴
+        user_ref.get().then((doc) => {
+          var data = doc.data();  //사용자 정보
+          var region = data.id_region;
+            
+          res.render('main_login', {region: region, fbp: freebestpost});
         });
       }
     });
+    
+    
+    
+
+      
+    
+    
   }
-  else {
+  else
+  {
     console.log("---------유저없음---------");
     res.render('main_logout');
   }
 });
+
+
+/* POST show hospital of selected region */
+router.post('/hospital', function(req, res) {
+    region = "서울특별시 " + req.query.region;
+    console.log(region);
+    
+    pool.getConnection(function (err, connection)
+    {
+      var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '?region?'%";
+      connection.query(sqlForGetHospital, datas, function(err, rows){
+          if(err) console.error("err : " + err);
+          console.log("rows: " + JSON.stringify(rows));
+  
+          res.redirect('/');
+          connection.release();
+      });
+
+    });
+
+    
+    
+    
+    
+    
+    
+});
+
+
+
+
+
+
+
+
 
 
 /* GET Logout function */

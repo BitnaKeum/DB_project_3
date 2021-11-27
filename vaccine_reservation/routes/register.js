@@ -18,24 +18,24 @@ var pool = mysql.createPool({
 // const connection = mysql.createConnection(dbconfig);
 
 
-// /* firebase Web-App Configuration */
-// var firebase_config = {
-//   apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
-//   authDomain: "lloginexample.firebaseapp.com",
-//   databaseURL: "https://lloginexample.firebaseio.com",
-//   projectId: "lloginexample",
-//   storageBucket: "lloginexample.appspot.com",
-//   messagingSenderId: "124851004056",
-//   appId: "1:124851004056:web:b58239166f9907ce3926ed",
-//   measurementId: "G-CR5E843ZEM"
-// };
+ /* firebase Web-App Configuration */
+ var firebase_config = {
+   apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
+   authDomain: "lloginexample.firebaseapp.com",
+   databaseURL: "https://lloginexample.firebaseio.com",
+   projectId: "lloginexample",
+   storageBucket: "lloginexample.appspot.com",
+   messagingSenderId: "124851004056",
+   appId: "1:124851004056:web:b58239166f9907ce3926ed",
+   measurementId: "G-CR5E843ZEM"
+ };
 
-// /* Initialize Firebase */
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(firebase_config);
-// }
-// var db = firebase.firestore();  //firestore
-// var fb_auth = firebase.auth();  //authentication
+ /* Initialize Firebase */
+ if (!firebase.apps.length) {
+   firebase.initializeApp(firebase_config);
+ }
+ var db = firebase.firestore();  //firestore
+ var fb_auth = firebase.auth();  //authentication
 
 /* GET register page */
 router.get('/', function(req, res) {
@@ -52,30 +52,30 @@ router.get('/', function(req, res) {
 // });
 
 /* POST nickname overlap check listener */
-// router.get('/check', function(req, res){
-//     console.log(req.query.nickname);
-//     var param_nickname = req.query.nickname;
-//     var overlap_flag = false;
-//     db.collection("user").orderBy("id_nickName", "desc").get()
-//         .then((snapshot) => {
-//             var rows=[];
-//             snapshot.forEach((doc) => {
-//                 var childData = doc.data();
-//                 if(param_nickname == childData.id_nickName){
-//                 overlap_flag = true;
-//                 }
-//             });
-//             if(overlap_flag == true) {
-//                 console.log("같은 닉네임이 이미 존재합니다.");
-//                 res.json(1);
-//             }
-//             else {
-//                 console.log("해당 닉네임은 사용 가능합니다.");
-//                 res.json(0);
-//             }
-//         }
-//     );
-// });
+ router.get('/check', function(req, res){
+     console.log(req.query.nickname);
+     var param_nickname = req.query.nickname;
+     var overlap_flag = false;
+     db.collection("user").orderBy("id_nickName", "desc").get()
+         .then((snapshot) => {
+             var rows=[];
+             snapshot.forEach((doc) => {
+                 var childData = doc.data();
+                 if(param_nickname == childData.id_nickName){
+                 overlap_flag = true;
+                 }
+             });
+             if(overlap_flag == true) {
+                 console.log("같은 닉네임이 이미 존재합니다.");
+                 res.json(1);
+             }
+             else {
+                 console.log("해당 닉네임은 사용 가능합니다.");
+                 res.json(0);
+             }
+         }
+     );
+ });
 
 /* POST sign-up event listener */
 router.post('/', function(req, res) {
