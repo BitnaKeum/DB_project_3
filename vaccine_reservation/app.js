@@ -15,6 +15,7 @@ var mainRouter = require('./routes/main');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 var freeboardRouter = require('./routes/freeboard');
+var reservation = require('./routes/reserve');
 var regionboardRouter = require('./routes/regionboard');
 var mypageRouter = require('./routes/mypage');
 var app = express();
@@ -63,6 +64,9 @@ app.use('/login', loginRouter);
 app.use('/freeboard', freeboardRouter);
 app.use('/regionboard', regionboardRouter);
 app.use('/mypage', mypageRouter);
+app.use('/reserve', reservation);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -81,37 +85,37 @@ app.use(function(err, req, res, next) {
 });
 
 
-/* 서버에서 자동으로 유저 포인트 지급하는 코드*/
-/* firebase Web-App Configuration */
-var firebase = require('firebase');
-const admin = require('firebase-admin');
-var firebase_config = {
-  apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
-  authDomain: "lloginexample.firebaseapp.com",
-  databaseURL: "https://lloginexample.firebaseio.com",
-  projectId: "lloginexample",
-  storageBucket: "lloginexample.appspot.com",
-  messagingSenderId: "124851004056",
-  appId: "1:124851004056:web:b58239166f9907ce3926ed",
-  measurementId: "G-CR5E843ZEM"
-};
-var serviceAccount = require("./service_account_key/lloginexample-firebase-adminsdk-7ekvt-f5729812f3.json");
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://lloginexample.firebaseio.com"
-  });
-}
+// /* 서버에서 자동으로 유저 포인트 지급하는 코드*/
+// /* firebase Web-App Configuration */
+// var firebase = require('firebase');
+// const admin = require('firebase-admin');
+// var firebase_config = {
+//   apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
+//   authDomain: "lloginexample.firebaseapp.com",
+//   databaseURL: "https://lloginexample.firebaseio.com",
+//   projectId: "lloginexample",
+//   storageBucket: "lloginexample.appspot.com",
+//   messagingSenderId: "124851004056",
+//   appId: "1:124851004056:web:b58239166f9907ce3926ed",
+//   measurementId: "G-CR5E843ZEM"
+// };
+// var serviceAccount = require("./service_account_key/lloginexample-firebase-adminsdk-7ekvt-f5729812f3.json");
+// if (!admin.apps.length) {
+//   admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: "https://lloginexample.firebaseio.com"
+//   });
+// }
 
-let db_admin = admin.firestore();
-/* Initialize Firebase */
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebase_config);
-}
-var db = firebase.firestore();  //firestore
-var fb_auth = firebase.auth();
+// let db_admin = admin.firestore();
+// /* Initialize Firebase */
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(firebase_config);
+// }
+// var db = firebase.firestore();  //firestore
+// var fb_auth = firebase.auth();
 
-let region_ref = db_admin.collection("data").doc("allData");
+// let region_ref = db_admin.collection("data").doc("allData");
 
 // sec, min, hour, day, mon, week
 // ->매 01분 00초마다 실행한다는 뜻 (1시간 주기)
