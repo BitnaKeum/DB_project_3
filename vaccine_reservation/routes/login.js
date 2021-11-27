@@ -49,7 +49,10 @@ passport.use(new LocalStrategy({
       connection.query(sqlForLoggin, params, function(err, rows){
         console.log(username);
         console.log(rows.length)
-        if(err) {return done(false, null);}
+        if(err) {return done(false, {
+          'username': username,
+          'password': password
+        });}
         else {
           if(rows.length != 0){
             pass = true;

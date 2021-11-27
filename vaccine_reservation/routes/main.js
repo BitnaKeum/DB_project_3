@@ -27,9 +27,11 @@ var isAuthenticated = function (req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log(req.user)
     if(isAuthenticated){
         console.log("---------로그인---------");   
         res.render('main_login');
+    }
     else {
         console.log("---------유저없음---------");
         res.render('main_logout');
@@ -71,14 +73,48 @@ router.post('/hospital', function(req, res) {
 
 
 
+// var logout = function() {
+//   return function (req, res, next) {
+//       console.log("ger");
+//       req.logout();
+//       req.session.save(function(){
+//         res.redirect('/');
+//       });
+    
+//   };
+// };
+
+
+// router.get('/logout', (req,res)=>{
+//       req.session = null
+//       res.redirect('/');
+// })
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var app2 = express();
+
+
+
+app2.use(passport.initialize());
+app2.use(passport.session());
 
 /* GET Logout function */
-router.get('/logout', function(req, res, next) {
-  firebase.auth().signOut().then(function() {
-    res.redirect('/');
-  }).catch(function(err) {
-    console.log(err);
-  });
+router.get('/logout', function (req, res) {
+  console.log("ghi2")
+  req.session = null;
+  console.log("ghi")
+  res.redirect('/');
 });
+
+
+passport.serializeUser(function(user, done){
+  done(null, user)
+});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
 
 module.exports = router;
