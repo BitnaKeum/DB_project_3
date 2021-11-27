@@ -19,22 +19,22 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const mysql      = require('mysql');
-const dbconfig   = require('./routes/database.js');
-const connection = mysql.createConnection(dbconfig);
+// const mysql      = require('mysql');
+// const dbconfig   = require('./routes/database.js');
+// const connection = mysql.createConnection(dbconfig);
 
 
-app.get('/users', (req, res) => {
-  connection.query('SELECT * from client', (error, rows) => {
-    if (error) throw error;
-    console.log('User info is: ', rows);
-    res.send(rows);
-  });
-});
+// app.get('/users', (req, res) => {
+//   connection.query('SELECT * from client', (error, rows) => {
+//     if (error) throw error;
+//     console.log('User info is: ', rows);
+//     res.send(rows);
+//   });
+// });
 
-app.listen(app.get('port'), () => {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// app.listen(app.get('port'), () => {
+//   console.log('Express server listening on port ' + app.get('port'));
+// });
 
 
 
