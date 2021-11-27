@@ -3,7 +3,6 @@ var app2 = express();
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var firebase = require('firebase');
 var flash = require('connect-flash');
 require('date-utils');
 
@@ -11,7 +10,7 @@ app2.use(passport.initialize());
 app2.use(passport.session());
 
 
-const mysql      = require('mysql');
+const mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit : 100,
     host : 'localhost',
