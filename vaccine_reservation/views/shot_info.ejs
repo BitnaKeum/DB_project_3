@@ -40,7 +40,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">예약/접종 현황 조회</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">예약/접종 조회</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a>
@@ -73,11 +73,12 @@
                     
                     <colgroup>
                         <col width='7%' />
-                        <col width='15%' />
-                        <col width='15%' />
+                        <col width='13%' />
+                        <col width='10%' />
                         <col width='15%' />
                         <col width='*%' />
                         <col width='15%' />
+                        <col width='10%' />
                     </colgroup>
                     
                     <thead>        
@@ -88,6 +89,7 @@
                             <th><center>의료기관명</center></th>
                             <th><center>의료기관 위치</center></th>
                             <th><center>의료기관 전화번호</center></th>
+                            <th><center>상태</center>
                         </tr>
                     </thead>
 
@@ -99,6 +101,15 @@
                             <td style="text-align:center"><%=book_info_1st['hospital_name']%></td>
                             <td style="text-align:center"><%=book_info_1st['hospital_location']%></td>
                             <td style="text-align:center"><%=book_info_1st['hospital_hp']%></td>
+                            <td style="text-align:center"><%=book_info_1st['status']%>
+                            <% if (book_info_1st['status'] == "예약") { %>
+                                <form name="cancel" action="/shot_info/cancel" method="post">
+                                    <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
+                                    <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
+                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
+                                </form>
+                            <% } %>
+                            </td>
                         </tr>
                         <% if (book_info_2st != null) { %>
                         <tr>
@@ -108,6 +119,15 @@
                             <td style="text-align:center"><%=book_info_2st['hospital_name']%></td>
                             <td style="text-align:center"><%=book_info_2st['hospital_location']%></td>
                             <td style="text-align:center"><%=book_info_2st['hospital_hp']%></td>
+                            <td style="text-align:center"><%=book_info_2st['status']%>
+                            <% if (book_info_2st['status'] == "예약") { %>
+                                <form name="cancel" action="/shot_info/cancel" method="post">
+                                    <input type="hidden" name="order" value="<%=book_info_2st['order']%>">
+                                    <input type="hidden" name="shot_code" value="<%=book_info_2st['shot_code']%>">
+                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
+                                </form>
+                            <% } %>
+                            </td>
                         </tr>
                         <% } %>
                     </tbody>

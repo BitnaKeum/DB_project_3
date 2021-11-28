@@ -19,13 +19,13 @@ var pool = mysql.createPool({
 });
 
 
+/* 네비게이션 바에서 예약/접종 현황 조회 버튼 클릭 */
 router.get('/', function(req, res, next) {
-    user_id = req.session.nickname;
+    user_id = req.session.nickname; // id
     
     pool.getConnection(function (err, connection)
     {
         if (err) {throw err};
-        
         
         var sqlForClient = "SELECT CLIENT_CODE FROM CLIENT WHERE ID = ?";
         connection.query(sqlForClient, user_id, function(err, client_row) {
@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
             var sqlForShot = "SELECT * FROM SHOT WHERE CLIENT_CLIENT_CODE = ?";
             connection.query(sqlForShot, client_code, function(err, shot_row){
                 shot = shot_row[0];
-                if (shot.BOOK_DATE_1ST == null) {
+                if (shot == null) { // 예약/접종 내역 없음
                     res.render('shot_info', {book_info_1st: null, book_info_2st: null, shot_info_1st: null, shot_info_2st: null}); 
                 }
                 else {
@@ -42,26 +42,32 @@ router.get('/', function(req, res, next) {
                     var sqlForHospital = "SELECT * FROM HOSPITAL WHERE HOSPITAL_CODE = ?";
                     connection.query(sqlForHospital, hospital_code, function(err, hospital_row){  
                         hospital = hospital_row[0];
-                        book_info_1st = {};
-                        book_info_2st = {};
-                        shot_info_1st = {};
-                        shot_info_2st = {};
+                        book_info_1st = null;
+                        book_info_2st = null;
+                        shot_info_1st = null;
+                        shot_info_2st = null;
 
                         if (shot.BOOK_DATE_1ST != null) {
+                            if (shot.SHOT_DATE_1ST == null) { status = "예약"; }
+                            else { status = "완료"; }
+
                             book_info_1st = {
-                                'order': 1, 'date': shot.BOOK_DATE_1ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 
+                                'order': 1, 'date': shot.BOOK_DATE_1ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 'status': status, 'shot_code': shot.SHOT_CODE,
                                 'hospital_name': hospital.HOSPITAL_NAME, 'hospital_location': hospital.LOCATION, 'hospital_hp': hospital.HOSPITAL_HP
                             };
                         }
                         if (shot.BOOK_DATE_2ST != null) {
+                            if (shot.SHOT_DATE_2ST == null) { status = "예약"; }
+                            else { status = "완료"; }
+
                             book_info_2st = {
-                                'order': 2, 'date': shot.BOOK_DATE_2ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 
+                                'order': 2, 'date': shot.BOOK_DATE_2ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 'status': status, 'shot_code': shot.SHOT_CODE,
                                 'hospital_name': hospital.HOSPITAL_NAME, 'hospital_location': hospital.LOCATION, 'hospital_hp': hospital.HOSPITAL_HP
                             };
                         }
                         if (shot.SHOT_DATE_1ST != null) {
                             shot_info_1st = {
-                                'order': 1, 'date': shot.SHOT_DATE_1ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 
+                                'order': 1, 'date': shot.SHOT_DATE_1ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE,
                                 'hospital_name': hospital.HOSPITAL_NAME, 'hospital_location': hospital.LOCATION, 'hospital_hp': hospital.HOSPITAL_HP
                             };
                         }
@@ -80,89 +86,22 @@ router.get('/', function(req, res, next) {
         });
         
         connection.release();
-    });
- 
-    
-    
+    });    
 });
 
 
-///* 예약/접종 현황 조회 */
-//router.post('/', function(req, res, next) {
-//    client_code = req.query.client_code;
-//    
-//    pool.getConnection(function (err, connection)
-//    {
-//        if (err) {throw err};
-//        
-//        var sqlForShot = "SELECT * FROM SHOT WHERE CLIENT_CLIENT_CODE=" + client_code;
-//        console.log(sqlForShot);
-//        
-//        connection.query(sqlForShot, function(err, shot_row){
-//            if (shot_row[1] == null) {
-//                res.render('shot_info', {book_info_1st: null, book_info_2st: null, shot_info_1st: null, shot_info_2st: null}); 
-//            }
-//            
-//            else {
-//                hospital_code = shot_row[5];
-//                var sqlForHospital = "SELECT * FROM HOSPITAL WHERE HOSPITAL_CODE=" + hospital_code;
-//                console.log(sqlForHospital);
-//                connection.query(sqlForHospital, function(err, hospital_row){            
-//                    book_info_1st = {};
-//                    book_info_2st = {};
-//                    shot_info_1st = {};
-//                    shot_info_2st = {};
-//
-//                    if (shot_row[1] != null) {
-//                        book_info_1st = {
-//                            'order': 1, 'date': shot_row[1], 'vaccine_type': shot_row[7], 
-//                            'hospital_name': hospital_row[1], 'hospital_location': hospital_row[2], 'hospital_hp': hospital_row[3]
-//                        };
-//                    }
-//                    if (shot_row[2] != null) {
-//                        book_info_2st = {
-//                            'order': 2, 'date': shot_row[2], 'vaccine_type': shot_row[7], 
-//                            'hospital_name': hospital_row[1], 'hospital_location': hospital_row[2], 'hospital_hp': hospital_row[3]
-//                        };
-//                    }
-//                    if (shot_row[3] != null) {
-//                        shot_info_1st = {
-//                            'order': 1, 'date': shot_row[3], 'vaccine_type': shot_row[7], 
-//                            'hospital_name': hospital_row[1], 'hospital_location': hospital_row[2], 'hospital_hp': hospital_row[3]
-//                        };
-//                    }
-//                    if (shot_row[4] != null) {
-//                        shot_info_2st = {
-//                            'order': 2, 'date': shot_row[4], 'vaccine_type': shot_row[7], 
-//                            'hospital_name': hospital_row[1], 'hospital_location': hospital_row[2], 'hospital_hp': hospital_row[3]
-//                        };
-//                    }
-//
-//                    res.render('shot_info', {book_info_1st: book_info_1st, book_info_2st: book_info_2st, shot_info_1st: shot_info_1st, shot_info_2st: shot_info_2st}); 
-//                });
-//            }
-//        });
-//        
-//        connection.release();
-//    });
-//});
+/* 예약 취소 */
+router.post('/cancel', function(req, res) {
+    var order = req.body.order;
+    var shot_code = req.body.shot_code;
 
-
-/* POST show hospital of selected region */
-router.post('/hospital', function(req, res) {
-//    region = req.query.region;
-//    console.log(region);
-//    
-//    var page = Number(req.query.page);
-//    if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌
-//        page = 1;
-//    }
-//    
+    
 //    pool.getConnection(function (err, connection)
 //    {
 //        if (err) {throw err};
 //        
 //        var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '서울특별시 " + region + "%'";
+//        var sqlForDelShot = ""
 //
 //        connection.query(sqlForGetHospital, function(err, rows){
 //            if(err) console.error("error : " + err);
@@ -173,7 +112,7 @@ router.post('/hospital', function(req, res) {
 //        
 //        connection.release();
 //    });
-// 
+ 
 });
 
 /* GET show hospital of selected region */
