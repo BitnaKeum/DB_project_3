@@ -50,7 +50,6 @@ router.get('/', function(req, res, next) {
                         if (shot.BOOK_DATE_1ST != null) {
                             if (shot.SHOT_DATE_1ST == null) { status = "예약"; }
                             else { status = "완료"; }
-
                             book_info_1st = {
                                 'order': 1, 'date': shot.BOOK_DATE_1ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 'status': status, 'shot_code': shot.SHOT_CODE,
                                 'hospital_name': hospital.HOSPITAL_NAME, 'hospital_location': hospital.LOCATION, 'hospital_hp': hospital.HOSPITAL_HP
@@ -59,7 +58,6 @@ router.get('/', function(req, res, next) {
                         if (shot.BOOK_DATE_2ST != null) {
                             if (shot.SHOT_DATE_2ST == null) { status = "예약"; }
                             else { status = "완료"; }
-
                             book_info_2st = {
                                 'order': 2, 'date': shot.BOOK_DATE_2ST, 'vaccine_type': shot.VACCINE_VACCINE_TYPE, 'status': status, 'shot_code': shot.SHOT_CODE,
                                 'hospital_name': hospital.HOSPITAL_NAME, 'hospital_location': hospital.LOCATION, 'hospital_hp': hospital.HOSPITAL_HP
@@ -95,52 +93,55 @@ router.post('/cancel', function(req, res) {
     var order = req.body.order;
     var shot_code = req.body.shot_code;
 
+    if (order == 1) {
+        var sqlForCancel = "DELETE FROM SHOT WHERE SHOT_CODE = ?";
+    }
+    else {
+        var sqlForCancel = "UPDATE SHOT SET BOOK_DATE_2ST = null WHERE SHOT_CODE = ?";
+    }
     
-//    pool.getConnection(function (err, connection)
-//    {
-//        if (err) {throw err};
-//        
-//        var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '서울특별시 " + region + "%'";
-//        var sqlForDelShot = ""
-//
-//        connection.query(sqlForGetHospital, function(err, rows){
-//            if(err) console.error("error : " + err);
-//            hospitals_str = JSON.stringify(rows);
-//            hospitals = JSON.parse(hospitals_str);
-//            res.render('hospital', {region: region, hospitals: hospitals, page: page}); 
-//        });
-//        
-//        connection.release();
-//    });
- 
+    
+    
+    pool.getConnection(function (err, connection)
+    {
+        if (err) {throw err};
+
+        connection.query(sqlForCancel, shot_code, function(err, rows){
+            res.send("<script>alert('예약 취소가 완료되었습니다.');location.href=document.referrer;</script>");
+            
+        });
+        connection.release();
+    });
 });
 
-/* GET show hospital of selected region */
-router.get('/hospital', function(req, res) {
-//    region = req.query.region;
-//    console.log(region);
-//    
-//    var page = Number(req.query.page);
-//    if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌
-//        page = 1;
-//    }
-//    
-//    pool.getConnection(function (err, connection)
-//    {
-//        if (err) {throw err};
-//        
-//        var sqlForGetHospital = "SELECT * FROM HOSPITAL WHERE LOCATION LIKE '서울특별시 " + region + "%'";
-//
-//        connection.query(sqlForGetHospital, function(err, rows){
-//            if(err) console.error("error : " + err);
-//            hospitals_str = JSON.stringify(rows);
-//            hospitals = JSON.parse(hospitals_str);
-//            res.render('hospital', {region: region, hospitals: hospitals, page: page}); 
-//        });
-//        
-//        connection.release();
-//    });
-// 
+
+/* 예약 변경 */
+router.post('/modify', function(req, res) {
+    var book_date = req.body.book_date;
+    var order = req.body.order;
+    var shot_code = req.body.shot_code;
+
+    if (order == 1) {
+        var sqlForModify = "UPDATE SHOT SET BOOK_DATE_1ST = ? WHERE SHOT_CODE = ?";
+    }
+    else {
+        var sqlForModify = "UPDATE SHOT SET BOOK_DATE_2ST = ? WHERE SHOT_CODE = ?";
+    }
+    
+    
+    
+    pool.getConnection(function (err, connection)
+    {
+        if (err) {throw err};
+
+        connection.query(sqlForModify, shot_code, function(err, rows){
+            res.send("<script>alert('예약 취소가 완료되었습니다.');location.href=document.referrer;</script>");
+            
+        });
+        
+        connection.release();
+    });
+ 
 });
 
 

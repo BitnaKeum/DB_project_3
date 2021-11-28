@@ -106,7 +106,12 @@
                                 <form name="cancel" action="/shot_info/cancel" method="post">
                                     <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
                                     <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
-                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
+                                    <button style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
+                                </form>
+                                <form name="modify" action="/shot_info/modify" method="post">
+                                    <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
+                                    <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
+                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 변경</button>
                                 </form>
                             <% } %>
                             </td>
@@ -126,6 +131,11 @@
                                     <input type="hidden" name="shot_code" value="<%=book_info_2st['shot_code']%>">
                                     <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
                                 </form>
+                                <form name="modify" action="/shot_info/modify" method="post">
+                                    <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
+                                    <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
+                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 변경</button>
+                                </form>
                             <% } %>
                             </td>
                         </tr>
@@ -133,10 +143,9 @@
                     </tbody>
                     
                 </table>
-                <br><hr/>
+                <hr/><br>
 
             <% } %> 
-            <hr><br><br>
             
             <h3 class="text-center text-uppercase">접종현황 조회</h3>
             <br><br>
