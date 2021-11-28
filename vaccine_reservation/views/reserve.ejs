@@ -74,13 +74,21 @@
           <div class="formfield"><a><%=LAST_SHOT_DATE%></a></div>
           <div id="name_check"></div>
           <br>
+
+          <br>
+
+          <div class="fieldlabel"><label for="userName">예약병원</label></div>
+          <div class="formfield"name="hospital_name" id="hospital_name" ><a><%=hospital_name%></a></div>
+       
+          
+          <br>
    
           <br>
           <div class="fieldlabel"><label for="BookDate">예약날짜</label></div>
-          <input type="date" name="Date" id="Date"> 
+          <input type="date" name="BookDate" id="BookDate"> 
           <br>
           <br>
-            <select id="email02" name="email02" list="domains" placeholder="백신종류 선택" required >
+            <select id="vaccine_type" name="vaccine_type" list="domains" placeholder="백신종류 선택" required >
             <datalist id="domains">
               <option value="화이자">화이자 잔여 : <%=PHIZER_NUM%>개</option>
               <option value="모더나">모더나 잔여 : <%=MODER_NUM%>개</option>
@@ -88,10 +96,14 @@
             </datalist>
             </select>
             <br>
-          </div>
+            <br>
+            <br>
+       
           <div class="btnfield">
             <input type="submit" id="reg_submit" value="예약하기">
           </div>
+
+        </div>
         </form>
       </div>
     </header>

@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
 
     pool.getConnection(function(err, connection){
     var sqlForGetClient = "SELECT CLIENT_CODE,CLIENT_NAME,AGE FROM CLIENT WHERE ID = ?";
-    var sqlForGetShot = "SELECT SHOT_DATE_1st,SHOT_DATE_2st,VACCINE_VACCINE_TYPE FROM SHOT WHERE CLIENT_CLIENT_CODE = ?";
+    var sqlForGetShot = "SELECT SHOT_DATE_1st,SHOT_DATE_2st,VACCINE_VACCINE_TYPE FROM SHOT WHERE CLIENT_CLIENT_CODE =?";
     var sqlForGetHospital = "SELECT HOSPITAL_NAME FROM HOSPITAL WHERE HOSPITAL_CODE = ?";
 
     var sqlForGetHospital_RESIDUAL_VACCINE = 
@@ -83,9 +83,7 @@ router.get('/', function(req, res, next) {
         }
 
 
-    });
-
-    
+           // 결과가 제대로 안뽑히는 오류 CLIENT_CODE는 제대로 인데;;
     connection.query(sqlForGetShot,CLIENT_CODE, function(err, rows){
         if(err) console.error("error : " + err);
 
@@ -120,50 +118,56 @@ router.get('/', function(req, res, next) {
             }
         }
 
-
-    });
-
-    connection.query(sqlForGetHospital_RESIDUAL_VACCINE,hospital_code, function(err, rows){
-        if(err) console.error("error : " + err);
-
-
-        for(var i=0;i <rows.length; i++)
-        {
-            if(i==0)
+        connection.query(sqlForGetHospital_RESIDUAL_VACCINE,hospital_code, function(err, rows){
+            if(err) console.error("error : " + err);
+    
+    
+            for(var i=0;i <rows.length; i++)
             {
-                MODER_NUM = rows[0].NUM
+                if(i==0)
+                {
+                    MODER_NUM = rows[0].NUM
+                }
+    
+                else if(i==1)
+                {
+                    AZ_NUM = rows[1].NUM
+                }
+    
+                else
+                {
+                    PHIZER_NUM = rows[2].NUM
+                }
             }
+    
+            console.log(rows)
 
-            else if(i==1)
-            {
-                AZ_NUM = rows[1].NUM
-            }
 
-            else
-            {
-                PHIZER_NUM = rows[2].NUM
-            }
-        }
-
-        console.log(rows)
-   
-
-    });
-
-    connection.query(sqlForGetHospital,hospital_code, function(err, rows){
-        if(err) console.error("error : " + err);
+            connection.query(sqlForGetHospital,hospital_code, function(err, rows){
+                if(err) console.error("error : " + err);
+                
+                hospital_name = rows[0].HOSPITAL_NAME
         
-        hospital_name = rows[0].HOSPITAL_NAME
-
-        console.log("check",CLIENT_NAME, CLIENT_CODE, AGE,SHOT_DATE_1st, SHOT_DATE_2st,VACCINE_VACCINE_TYPE,hospital_name)
-
-        res.render('reserve', {'CLIENT_NAME':CLIENT_NAME, CLIENT_CODE:CLIENT_CODE, AGE:AGE,SHOT_DATE_1st:SHOT_DATE_1st, 
-        SHOT_DATE_2st:SHOT_DATE_2st,VACCINE_VACCINE_TYPE:VACCINE_VACCINE_TYPE,hospital_name:hospital_name, 
-        VACCINE_ORDER:VACCINE_ORDER,LAST_SHOT_DATE:LAST_SHOT_DATE, MUST_TPYE:MUST_TPYE,
-        MODER_NUM:MODER_NUM, AZ_NUM:AZ_NUM, PHIZER_NUM:PHIZER_NUM});
-   
+                console.log("check",CLIENT_NAME, CLIENT_CODE, AGE,SHOT_DATE_1st, SHOT_DATE_2st,VACCINE_VACCINE_TYPE,hospital_name)
         
+                res.render('reserve', {'CLIENT_NAME':CLIENT_NAME, CLIENT_CODE:CLIENT_CODE, AGE:AGE,SHOT_DATE_1st:SHOT_DATE_1st, 
+                SHOT_DATE_2st:SHOT_DATE_2st,VACCINE_VACCINE_TYPE:VACCINE_VACCINE_TYPE,hospital_name:hospital_name, 
+                VACCINE_ORDER:VACCINE_ORDER,LAST_SHOT_DATE:LAST_SHOT_DATE, MUST_TPYE:MUST_TPYE,
+                MODER_NUM:MODER_NUM, AZ_NUM:AZ_NUM, PHIZER_NUM:PHIZER_NUM});
+           
+                
+            });
+       
+    
+        });
+    
+
+
     });
+
+    
+    });
+
     
     
     connection.release();
@@ -173,29 +177,55 @@ router.get('/', function(req, res, next) {
 
 });
 
-
+// 아직은 위에서 SHOT정보가 CLIENT CODE를 토대로 제대로 안뽑혀서 처음 예약하는 사람에 한해서만 제대로 동작함
 /* POST show hospital of selected region */
 router.post('/', function(req, res) {
 
+    const hospital_code = req.query.hospital_code
+    const BookDate = req.body.BookDate
+    const vaccine_type = req.body.vaccine_type
+
     var id = req.session.nickname;
 
+    console.log("ID ",id )
+
     var CLIENT_CODE;
+    var datas;
 
     pool.getConnection(function(err, connection){
+
+
         var sqlForGetClient = "SELECT CLIENT_CODE,CLIENT_NAME,AGE FROM CLIENT WHERE ID = ?";
-    
+
         connection.query(sqlForGetClient,id, function(err, rows){
             if(err) console.error("error : " + err);
     
             CLIENT_CODE = rows[0].CLIENT_CODE;
-    
-            res.render('shot_info', {client_code:CLIENT_CODE});
+
+            console.log("CODE : ",CLIENT_CODE)
+            datas = [BookDate,hospital_code,CLIENT_CODE,vaccine_type];
+
+            
+            console.log("here",datas);
+
+            var sqlForInsertMember = "insert into shot(BOOK_DATE_1ST,HOSPITAL_HOSPITAL_CODE,CLIENT_CLIENT_CODE,VACCINE_VACCINE_TYPE) values(?,?,?,?)";
+            connection.query(sqlForInsertMember, datas, function(err, rows){
+                if(err) console.error("err : " + err);
+                console.log("rows: " + JSON.stringify(rows));
+
+
+        
+        
+            });
+
     
         });
 
     
     });
 
+
+    res.redirect('/shot_info');
     connection.release();
     
 });
