@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>예약/접종 현황 조회</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
+    <link href="../button_styles.css" rel='stylesheet'>
+  	<link href="../css/bootstrap.css" rel='stylesheet'>
+</head>
+    
+<body id="page-top">
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">코로나19 백신 사전예약 시스템</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-fixed Black rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">예약/접종 현황 조회</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">알림</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    
+    
+    <!-- Portfolio Grid Section -->
+    
+    <section class="portfolio" id="portfolio">
+        <div class="container" style="padding-top:70px">
+            <h3 class="text-center text-uppercase">예약현황 조회</h3>
+            <br><br>
+            
+            <% if (book_info_1st == null) { %>
+                <br><center>해당하는 내역이 없습니다.</center><br><br><br> 
+            <% } 
+                else {
+            %>
+            
+                <table class="table table-hover">
+                    
+                    <colgroup>
+                        <col width='7%' />
+                        <col width='15%' />
+                        <col width='15%' />
+                        <col width='15%' />
+                        <col width='*%' />
+                        <col width='15%' />
+                    </colgroup>
+                    
+                    <thead>        
+                        <tr>
+                            <th><center>회차</center></th>
+                            <th><center>예약날짜</center></th>
+                            <th><center>백신종류</center></th>
+                            <th><center>의료기관명</center></th>
+                            <th><center>의료기관 위치</center></th>
+                            <th><center>의료기관 전화번호</center></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>  
+                        <tr>
+                            <td style="text-align:center"><%=book_info_1st['order']%></td>
+                            <td style="text-align:center"><%=book_info_1st['date']%></td>
+                            <td style="text-align:center"><%=book_info_1st['vaccine_type']%></td>
+                            <td style="text-align:center"><%=book_info_1st['hospital_name']%></td>
+                            <td style="text-align:center"><%=book_info_1st['hospital_location']%></td>
+                            <td style="text-align:center"><%=book_info_1st['hospital_hp']%></td>
+                        </tr>
+                        <% if (book_info_2st != null) { %>
+                        <tr>
+                            <td style="text-align:center"><%=book_info_2st['order']%></td>
+                            <td style="text-align:center"><%=book_info_2st['date']%></td>
+                            <td style="text-align:center"><%=book_info_2st['vaccine_type']%></td>
+                            <td style="text-align:center"><%=book_info_2st['hospital_name']%></td>
+                            <td style="text-align:center"><%=book_info_2st['hospital_location']%></td>
+                            <td style="text-align:center"><%=book_info_2st['hospital_hp']%></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+                <br><hr/>
+
+            <% } %> 
+            <hr><br><br>
+            
+            <h3 class="text-center text-uppercase">접종현황 조회</h3>
+            <br><br>
+            
+            <% if (shot_info_1st == null) { %>
+                <br><center>해당하는 내역이 없습니다.</center><br><br><br>
+            <% } 
+                else {
+            %>
+            
+                <table class="table table-hover">
+                    
+                    <colgroup>
+                        <col width='7%' />
+                        <col width='15%' />
+                        <col width='15%' />
+                        <col width='15%' />
+                        <col width='*%' />
+                        <col width='15%' />
+                    </colgroup>
+                    
+                    <thead>        
+                        <tr>
+                            <th><center>회차</center></th>
+                            <th><center>예약날짜</center></th>
+                            <th><center>백신종류</center></th>
+                            <th><center>의료기관명</center></th>
+                            <th><center>의료기관 위치</center></th>
+                            <th><center>의료기관 전화번호</center></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>  
+                        <tr>
+                            <td style="text-align:center"><%=shot_info_1st['order']%></td>
+                            <td style="text-align:center"><%=shot_info_1st['date']%></td>
+                            <td style="text-align:center"><%=shot_info_1st['vaccine_type']%></td>
+                            <td style="text-align:center"><%=shot_info_1st['hospital_name']%></td>
+                            <td style="text-align:center"><%=shot_info_1st['hospital_location']%></td>
+                            <td style="text-align:center"><%=shot_info_1st['hospital_hp']%></td>
+                        </tr>
+                        <% if (shot_info_2st != null) { %>
+                        <tr>
+                            <td style="text-align:center"><%=shot_info_2st['order']%></td>
+                            <td style="text-align:center"><%=shot_info_2st['date']%></td>
+                            <td style="text-align:center"><%=shot_info_2st['vaccine_type']%></td>
+                            <td style="text-align:center"><%=shot_info_2st['hospital_name']%></td>
+                            <td style="text-align:center"><%=shot_info_2st['hospital_location']%></td>
+                            <td style="text-align:center"><%=shot_info_2st['hospital_hp']%></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    
+                </table>
+                <br><hr/>
+
+            <% } %> 
+                
+                
+            
+            <!-- 돌아가기 버튼 -->
+<!--
+             <form name="main" action="/" method="get">
+                <button class="btn btn-primary btn-xl pull-right" style="background: #18bc9c; width: 120px; height: 50px">돌아가기</button>
+            </form>
+-->
+            
+        </div>
+      </section>                
+
+      
+</body>
+</html>

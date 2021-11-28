@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Main</title>
+    <title>코로나19 백신 사전예약 시스템</title>
   
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Needs</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">코로나19 백신 사전예약 시스템</a>
 
         <a><%=name%>님</a>
         
@@ -54,16 +54,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/freeboard/boardList">자유게시판</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/shot_info">예약/접종 조회</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/mypage">My Page</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/action">알림</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">My Page</a>
             </li>
           </ul>
         </div>
@@ -73,14 +70,12 @@
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
       <div class="container" style="padding-top:60px">
-<!--        <h2 class="text-center text-uppercase"><img class="img-fluid" src="img/portfolio/handshake.png" alt=""> board <img class="img-fluid" src="img/portfolio/handshake.png" alt="">&emsp;&nbsp;</h2>-->
-<!--        <br><br>-->
         <div class="text-center">
         <br>
         <div class="main">
 
 <!--            <input type="hidden" name="region" value=region>-->
-                
+            <h3 class="text-center text-uppercase">의료기관 찾기</h3><br><br>
                 
             <form name="region1" action="hospital?region=강남구" method="POST">
                 <button type="submit" class="btn btn-primary btn-xl pull-left" style="background: #18bc9c; width: 120px; height: 50px">강남구</button>
@@ -157,45 +152,7 @@
                 <button type="submit" class="btn btn-primary btn-xl pull-left" style="background: #18bc9c; width: 120px; height: 50px">중랑구</button>
             </form>
                 
-                
-                
-<!--
-                <button type="button" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">강남구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">강동구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">강북구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">강서구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">관악구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">광진구</button>
-                <br><br>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">구로구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">노원구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">도봉구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">동대문구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">동작구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">마포구</button>
-                <br><br>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">서대문구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">서초구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">성동구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">성북구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">송파구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">양천구</button>
-                <br><br>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">영등포구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">용산구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">은평구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">종로구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">중구</button>
-                <button type="submit" class="btn btn-primary btn-xl" style="background: #18bc9c; width: 100px; height: 50px">중랑구</button>
--->
-                
-        
-
-        </div>
-            
-            
-
-            
+          </div>
         </div>
       </div>
     </section>
@@ -256,65 +213,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
-    <script>
-      /* firebase Web-App Configuration */
-      var firebase_config = {
-        apiKey: "AIzaSyCE59at8BFrqn84RG63hn1uS_NhNrnPuso",
-        authDomain: "lloginexample.firebaseapp.com",
-        databaseURL: "https://lloginexample.firebaseio.com",
-        projectId: "lloginexample",
-        storageBucket: "lloginexample.appspot.com",
-        messagingSenderId: "124851004056",
-        appId: "1:124851004056:web:b58239166f9907ce3926ed",
-        measurementId: "G-CR5E843ZEM"
-      };
-        
-      /* Initialize Firebase */
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebase_config);
-      }
-      var db = firebase.firestore();  //firestore
-      var fb_auth = firebase.auth();
-        
-      function facebook_login(){
-        var provider = new firebase.auth.FacebookAuthProvider();
-        provider.addScope('user_birthday');
-        provider.setCustomParameters({
-          'display': 'popup'
-        });
-        fb_auth.signInWithPopup(provider)
-          .then(function(result) {
-            var token = result.credential.accessToken;
-            location.replace("/facebook_login?token="+token);
-            return true;
-          })
-          .catch(function(error){
-            var errorCode = error.code;
-            var errorMsg = error.message;
-            var email = error.email;
-            var credential = error.credential;
-            return false;
-          }
-        );
-      }
-        
-      function google_login(){
-        var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    
-        fb_auth.signInWithPopup(provider).then(function(result) {
-          var token = result.credential.accessToken;
-          location.replace("/google_login?token="+token);
-          return true;
-        }).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-          return false;
-        });
-      }    
-    </script>
 
   </body>
 

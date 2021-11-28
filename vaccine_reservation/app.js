@@ -14,8 +14,9 @@ var FileStore = require('session-file-store')(session);
 var mainRouter = require('./routes/main');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
+var reserveRouter = require('./routes/reserve');
+var shotinfoRouter = require('./routes/shot_info');
 var freeboardRouter = require('./routes/freeboard');
-var reservation = require('./routes/reserve');
 var regionboardRouter = require('./routes/regionboard');
 var mypageRouter = require('./routes/mypage');
 var app = express();
@@ -61,10 +62,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', mainRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/reserve', reserveRouter);
+app.use('/shot_info', shotinfoRouter);
 app.use('/freeboard', freeboardRouter);
 app.use('/regionboard', regionboardRouter);
 app.use('/mypage', mypageRouter);
-app.use('/reserve', reservation);
 
 
 
