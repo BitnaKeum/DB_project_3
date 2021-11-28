@@ -58,14 +58,14 @@
           <div class="formfield"><a><%=VACCINE_ORDER%>차 대상자</a></div>
           <div id="name_check"></div>
           <br>
-
+<!-- 
           <br>
 
 
           <div class="fieldlabel"><label for="userName">이전 접종 백신</label></div>
           <div class="formfield"><a><%=VACCINE_VACCINE_TYPE%></a></div>
           <div id="name_check"></div>
-          <br>
+          <br> -->
 
           <br>
 
@@ -90,9 +90,23 @@
           <br>
             <select id="vaccine_type" name="vaccine_type" list="domains" placeholder="백신종류 선택" required >
             <datalist id="domains">
+            <% if (MUST_TPYE == "화이자") { %>
               <option value="화이자">화이자 잔여 : <%=PHIZER_NUM%>개</option>
-              <option value="모더나">모더나 잔여 : <%=MODER_NUM%>개</option>
-              <option value="AZ">AZ 잔여 : <%=AZ_NUM%>개</option>
+              <option value="모더나" disabled>모더나 잔여 : <%=MODER_NUM%>개</option>
+              <option value="AZ" disabled>AZ 잔여 : <%=AZ_NUM%>개</option>
+              <% } %>
+
+              <% if (MUST_TPYE == "화이자 또는 모더나") { %>
+                <option value="화이자">화이자 잔여 : <%=PHIZER_NUM%>개</option>
+                <option value="모더나">모더나 잔여 : <%=MODER_NUM%>개</option>
+                <option value="AZ" disabled>AZ 잔여 : <%=AZ_NUM%>개</option>
+                <% } %>
+
+                <% if (MUST_TPYE == "모든 종류 가능") { %>
+                    <option value="화이자">화이자 잔여 : <%=PHIZER_NUM%>개</option>
+                    <option value="모더나">모더나 잔여 : <%=MODER_NUM%>개</option>
+                    <option value="AZ">AZ 잔여 : <%=AZ_NUM%>개</option>
+                    <% } %>
             </datalist>
             </select>
             <br>
