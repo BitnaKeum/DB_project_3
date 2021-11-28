@@ -28,62 +28,69 @@
 
   </head>
 
+
+
   <body id="page-top">
     <header class="masthead bg-primary text-black">
       <div class="container">
         <form name="registerform" method="POST">
           <div class="fieldlabel"><label for="userName">이름</label></div>
-          <div class="formfield"><input type="text" id="userName" name="userName" maxlength="20" value="" required></div>
+          <div class="formfield">     <a><%=CLIENT_NAME%>님</a></div>
+
+          <br>
+
+          <div class="fieldlabel"><label for="userName">나이</label></div>
+          <div class="formfield"><a><%=AGE%>세</a></div>
+       
+          
+          <br>
+
+          <br>
+
+          <div class="fieldlabel"><label for="userName">접종가능 백신</label></div>
+          <div class="formfield"><a><%=MUST_TPYE%></a></div>
+       
+          
+          <br>
+
+
+          <div class="fieldlabel"><label for="userName">접종차시</label></div>
+          <div class="formfield"><a><%=VACCINE_ORDER%>차 대상자</a></div>
           <div id="name_check"></div>
           <br>
-          <div class="fieldlabel"><label for="id">아이디</label></div>
-          <div class="formfield"><input type="text" id="id" name="id" maxlength="20" value="" required></div>
-          <div id="nickname_check"></div>
+
+          <br>
+
+
+          <div class="fieldlabel"><label for="userName">이전 접종 백신</label></div>
+          <div class="formfield"><a><%=VACCINE_VACCINE_TYPE%></a></div>
+          <div id="name_check"></div>
+          <br>
+
+          <br>
+
+
+          <div class="fieldlabel"><label for="userName">마지막 접종 날짜</label></div>
+          <div class="formfield"><a><%=LAST_SHOT_DATE%></a></div>
+          <div id="name_check"></div>
+          <br>
+   
+          <br>
+          <div class="fieldlabel"><label for="BookDate">예약날짜</label></div>
+          <input type="date" name="Date" id="Date"> 
           <br>
           <br>
-          <div class="fieldlabel"><label for="age">나이</label></div>
-          <div class="formfield"><input type="text" id="age" name="age" maxlength="20" value="" required></div>
-          <div id="nickname_check"></div>
-          <br>
-          <br>
-          <div class="fieldlabel"><label for="phone">핸드폰번호</label></div>
-          <div class="formfield"><input type="text" id="phone" name="phone" maxlength="20" value="" required></div>
-          <div id="nickname_check"></div>
-          <br>
-          <br>
-          <div class="fieldlabel"><label for="ssn">주민등록번호</label></div>
-          <div class="formfield"><input type="text" id="ssn" name="ssn" maxlength="20" value="" required></div>
-          <div id="nickname_check"></div>
-          <br>
-          <div class="fieldlabel"><label for="email01">이메일</label></div>
-          <div class="formfield"><input type="text" id="email01" name="email01" size="20" maxlength="20"
-               value="" autocomplete="off" required><span>@</span>
-            <input id="email02" name="email02" list="domains" placeholder="도메인 입력/선택" required>
+            <select id="email02" name="email02" list="domains" placeholder="백신종류 선택" required >
             <datalist id="domains">
-              <option value="naver.com">
-              <option value="daum.net">
-              <option value="yahoo.co.kr">
-              <option value="outlook.com">
+              <option value="화이자">화이자 잔여 : <%=PHIZER_NUM%>개</option>
+              <option value="모더나">모더나 잔여 : <%=MODER_NUM%>개</option>
+              <option value="AZ">AZ 잔여 : <%=AZ_NUM%>개</option>
             </datalist>
+            </select>
+            <br>
           </div>
-          <div id="email01_check"></div>
-          <div id="email02_check"></div>
-          <br>
-        
-          <div class="fieldlabel"><label for="sex">성별</label></div>
-          <div class="formfield"><input type="text" id="sex" name="sex" maxlength="20" value="" required></div>
-          <div id="region_check"></div>
-          <br>
-            
-            
-          <div class="fieldlabel"><label for="userPw">패스워드</label></div>
-          <div class="formfield">
-            <input type="password" id="userPw" name="userPw" maxlength="20" autocomplete="off" required>
-          </div>
-          <div id="pw_check"></div>
-          <br>
           <div class="btnfield">
-            <input type="submit" id="reg_submit" value="회원가입">
+            <input type="submit" id="reg_submit" value="예약하기">
           </div>
         </form>
       </div>
@@ -92,7 +99,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/">코로나19 백신 사전예약 시스템</a>
+        <a class="navbar-brand js-scroll-trigger" href="/">예약하기</a>
 
       </div>
     </nav>
