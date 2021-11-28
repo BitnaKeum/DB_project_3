@@ -15,7 +15,7 @@ var pool = mysql.createPool({
     user : 'root',
     port: 3306,
     database:'vaccine',
-    password : 'password1!'
+    password : '1234'
 });
 
 
@@ -28,7 +28,20 @@ router.get('/', function(req, res, next) {
     }
     else {
         console.log("---------유저없음---------");
-        res.render('main_logout');
+        
+        pool.getConnection(function(err, connection){
+            var sqlForGetLocationGu = "select substring(h.LOCATION, 7, 3) as Location, count(*) as Cnt \
+                        from hospital as h join vaccine_resiual as vr \
+                        where h.HOSPITAL_CODE = vr.HOSPITAL_HOSPITAL_CODE \
+                        group by substring(h.LOCATION, 7, 3)";
+            connection.query(sqlForGetLocationGu, function(err, rows){
+                if (err) console.error("err: " + err);
+                console.log("rows: " + JSON.stringify(rows));
+    
+                res.render("main_logout", {title: 'main_logout', rows:rows});
+                connection.release();
+            })
+        })
     }
 });
 
