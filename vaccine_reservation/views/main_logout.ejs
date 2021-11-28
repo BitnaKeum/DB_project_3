@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
   <head>
 
     <meta charset="utf-8">
@@ -33,9 +33,47 @@
     <header class="masthead bg-primary text-black text-center">
       <div class="container">
         <h1 class="text-uppercase mb-0">I need VACCINE !!!!!!!!!!!!</h1><br>
-        <img class="img-fluid mb-5 d-block mx-auto" src="img/handshake.jpg" alt="">
         <h2 class=" mb-0">현 백신 현황 </h2>
       </div>
+      <div class="container" id="location_gu"></div>
+      <script type="text/javascript">
+        google.charts.load('current', {'packages' : ['geochart', 'corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart(){
+          var data = google.visualization.arrayToDataTable([
+            ['', ''],
+            <%
+            for (var i = 0; i < rows.length; i++){
+              var oneItem = rows[i];
+            %>
+            ["<%=oneItem.Location%>", parseInt("<%=oneItem.Cnt%>")],
+            <%
+            }
+            %>
+          ]);
+          var options = {
+            height :450,
+            width :'100%',
+            legend: {position: 'none'},
+            hAxis: {textPosition: 'none'},
+            isStacked: false,
+            tooltip:{textStyle : {fontSize:10}, showColorCode : true},
+            animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+              startup: true, duration: 1000, easing: 'linear' },
+            annotations: { textStyle: {
+                  fontSize: 14, bold: true, italic: true, color: '#871b47', auraColor: '#d799ae',
+                  opacity: 0.7},
+            }
+          };
+          //var chart = new google.visualization.BarChart(document.getElementById("location_gu"));
+          var chart = new google.charts.Bar(document.getElementById("location_gu"));
+          chart.draw(data, google.charts.Bar.convertOptions(options));
+
+          // 반응형 그래프 출력
+          window.addEventListener('resize', function() { chart.draw(data, google.charts.Bar.convertOptions(options)); }, false);
+        };
+      </script>
     </header>
 
     <!-- Navigation -->
