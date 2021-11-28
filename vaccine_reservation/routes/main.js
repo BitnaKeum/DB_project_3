@@ -15,7 +15,7 @@ var pool = mysql.createPool({
     user : 'root',
     port: 3306,
     database:'vaccine',
-    password : '1234'
+    password : 'password1!'
 });
 
 
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
     console.log(req.session.is_logined)
     if(req.session.is_logined == true){
         console.log("---------로그인---------");   
-        res.render('main_login', {name:req.session.nickname});
+        res.render('main_login', {name: req.session.nickname});
     }
     else {
         console.log("---------유저없음---------");

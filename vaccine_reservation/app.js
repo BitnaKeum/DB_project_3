@@ -3,9 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const session = require('express-session');
 const schedule = require('node-schedule');
-
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 
@@ -21,24 +19,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// const mysql      = require('mysql');
-// const dbconfig   = require('./routes/database.js');
-// const connection = mysql.createConnection(dbconfig);
-
-
-// app.get('/users', (req, res) => {
-//   connection.query('SELECT * from client', (error, rows) => {
-//     if (error) throw error;
-//     console.log('User info is: ', rows);
-//     res.send(rows);
-//   });
-// });
-
-// app.listen(app.get('port'), () => {
-//   console.log('Express server listening on port ' + app.get('port'));
-// });
-
 
 
 app.engine('html', require('ejs').renderFile);

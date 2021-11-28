@@ -130,18 +130,18 @@ router.post('/modify', function(req, res) {
     
     
     
-    pool.getConnection(function (err, connection)
-    {
-        if (err) {throw err};
-
-        connection.query(sqlForModify, shot_code, function(err, rows){
-            res.send("<script>alert('예약 취소가 완료되었습니다.');location.href=document.referrer;</script>");
-            
-        });
-        
-        connection.release();
-    });
- 
+//    pool.getConnection(function (err, connection)
+//    {
+//        if (err) {throw err};
+//
+//        connection.query(sqlForModify, shot_code, function(err, rows){
+//            res.send("<script>alert('예약 취소가 완료되었습니다.');location.href=document.referrer;</script>");
+//            
+//        });
+//        
+//        connection.release();
+//    });
+// 
 });
 
 
