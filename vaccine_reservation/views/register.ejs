@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Assignment</title>
+    <title>회원가입</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -93,7 +93,6 @@
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">코로나19 백신 사전예약 시스템</a>
-
       </div>
     </nav>
 
@@ -131,133 +130,8 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-firestore.js"></script> -->
     <script>
-      // //이름 입력하지 않은 경우 버튼 막음
-      // $("#userName").blur(function() {
-      //   var name = $("#userName").val();
-      //   $.ajax({
-      //     success : function(data){
-      //       if(name == ""){
-      //         $("#name_check").text("이름을 입력해주세요");
-      //         $("#name_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         $("#name_check").text("");
-      //         $("#reg_submit").attr("disabled", false);
-      //       }
-      //     }
-      //   })
-      // })
 
-      // //닉네임 중복 체크
-      // $("#nickName").blur(function() {
-      //   var nick = $('#nickName').val();
-      //   $.ajax({
-      //     url : './register/check?nickname='+ nick,
-      //     type : 'GET',
-      //     success : function(data){
-      //       console.log("1 = 중복o / 0 = 중복x : "+ data);
-      //       console.dir(data);
-      //       if (data == 1){
-      //         // 1: 닉네임이 중복인 경우
-      //         $("#nickname_check").text("사용중인 닉네임입니다.");
-      //         $("#nickname_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         if(nick == ""){
-      //           $("#nickname_check").text("닉네임을 입력해주세요");
-      //           $("#nickname_check").css("color", "red");
-      //           $("#reg_submit").attr("disabled", true);
-      //         }
-      //         else {
-      //           $("#nickname_check").text("사용가능한 닉네임입니다");
-      //           $("#nickname_check").css("color", "green");
-      //           $("#reg_submit").attr("disabled", false);
-      //         }
-      //       }
-      //     }, error : function(){
-      //       console.log("실패");
-      //     }
-      //   })
-      // })
-
-      // //이메일 입력하지 않은 경우 버튼 막음
-      // $("#email01").blur(function() {
-      //   var email_front = $("#email01").val();
-      //   $.ajax({
-      //     success : function(data){
-      //       if(email_front == ""){
-      //         $("#email01_check").text("이메일을 입력해주세요");
-      //         $("#email01_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         $("#email01_check").text("");
-      //         $("#reg_submit").attr("disabled", false);
-      //       }
-      //     }
-      //   })
-      // })
-
-      // //이메일 도메인 선택 안한경우 막음
-      // $("#email02").blur(function() {
-      //   var email_domain = $("#email02").val();
-      //   $.ajax({
-      //     success : function(data){
-      //       if(email_domain == ""){
-      //         $("#email02_check").text("이메일 도메인을 선택/입력해주세요");
-      //         $("#email02_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         $("#email02_check").text("");
-      //         $("#reg_submit").attr("disabled", false);
-      //       }
-      //     }
-      //   })
-      // })
-
-      // //지역 입력하지 않은 경우 버튼 막음
-      // $("#regionName").blur(function() {
-      //   var region = $("#regionName").val();
-      //   $.ajax({
-      //     success : function(data){
-      //       if(region == ""){
-      //         $("#region_check").text("지역을 입력해주세요");
-      //         $("#region_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         $("#region_check").text("");
-      //         $("#reg_submit").attr("disabled", false);
-      //       }
-      //     }
-      //   })
-      // })
-        
-      //비밀번호 입력 안한경우 막음
-      // $("#userPw").blur(function() {
-      //   var pw = $("#userPw").val();
-      //   $.ajax({
-      //     success : function(data){
-      //       if(pw == ""){
-      //         $("#pw_check").text("비밀번호를 입력해주세요");
-      //         $("#pw_check").css("color", "red");
-      //         $("#reg_submit").attr("disabled", true);
-      //       } 
-      //       else {
-      //         $("#pw_check").text("");
-      //         $("#reg_submit").attr("disabled", false);
-      //       }
-      //     }
-      //   })
-      // })
 
 
     </script>

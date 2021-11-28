@@ -2,92 +2,95 @@
 <html lang="ko">
 
   <head>
-
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Assignment</title>
+    <title>백신 예약하기</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
+    <link href="../css/freelancer.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
-     <link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
-     <link href="button_styles.css" rel='stylesheet'>
-
+  	<link href='https://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
+    <link href="../button_styles.css" rel='stylesheet'>
+  	<link href="../css/bootstrap.css" rel='stylesheet'>
   </head>
 
-
+    
 
   <body id="page-top">
+      
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">코로나19 백신 사전예약 시스템</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-fixed Black rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">예약하기</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/shot_info">예약/접종 조회</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>  
+      
+      
     <header class="masthead bg-primary text-black">
       <div class="container">
         <form name="registerform" method="POST">
-          <div class="fieldlabel"><label for="userName">이름</label></div>
-          <div class="formfield">     <a><%=CLIENT_NAME%>님</a></div>
+          <div class="fieldlabel"><label for="userName"><b>이름</b></label></div>
+          <div class="formfield"><a><%=CLIENT_NAME%>님</a></div>
+          <br><br>
 
-          <br>
-
-          <div class="fieldlabel"><label for="userName">나이</label></div>
+          <div class="fieldlabel"><label for="userName"><b>나이</b></label></div>
           <div class="formfield"><a><%=AGE%>세</a></div>
-       
-          
-          <br>
+          <br><br>
 
-          <br>
-
-          <div class="fieldlabel"><label for="userName">접종가능 백신</label></div>
+          <div class="fieldlabel"><label for="userName"><b>접종가능 백신</b></label></div>
           <div class="formfield"><a><%=MUST_TPYE%></a></div>
-       
-          
-          <br>
+          <br><br>
 
-
-          <div class="fieldlabel"><label for="userName">접종차시</label></div>
+          <div class="fieldlabel"><label for="userName"><b>접종 회차</b></label></div>
           <div class="formfield"><a><%=VACCINE_ORDER%>차 대상자</a></div>
           <div id="name_check"></div>
+          <br><br>
+          <!-- 
           <br>
-<!-- 
-          <br>
-
-
           <div class="fieldlabel"><label for="userName">이전 접종 백신</label></div>
           <div class="formfield"><a><%=VACCINE_VACCINE_TYPE%></a></div>
           <div id="name_check"></div>
           <br> -->
-
-          <br>
-
-
-          <div class="fieldlabel"><label for="userName">마지막 접종 날짜</label></div>
+          <div class="fieldlabel"><label for="userName"><b>마지막 접종 날짜</b></label></div>
           <div class="formfield"><a><%=LAST_SHOT_DATE%></a></div>
           <div id="name_check"></div>
-          <br>
-
-          <br>
-
-          <div class="fieldlabel"><label for="userName">예약병원</label></div>
+          <br><br>
+          <div class="fieldlabel"><label for="userName"><b>의료기관</b></label></div>
           <div class="formfield"name="hospital_name" id="hospital_name" ><a><%=hospital_name%></a></div>
-       
-          
-          <br>
-   
-          <br>
-          <div class="fieldlabel"><label for="BookDate">예약날짜</label></div>
+          <br><br>
+          <div class="fieldlabel"><label for="BookDate"><b>예약 날짜</b></label></div>
           <input type="date" name="BookDate" id="BookDate"> 
-          <br>
-          <br>
+          <br><br>
             <select id="vaccine_type" name="vaccine_type" list="domains" placeholder="백신종류 선택" required >
             <datalist id="domains">
             <% if (MUST_TPYE == "화이자") { %>
@@ -116,19 +119,10 @@
           <div class="btnfield">
             <input type="submit" id="reg_submit" value="예약하기">
           </div>
-
-        </div>
         </form>
       </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/">예약하기</a>
-
-      </div>
-    </nav>
 
 
     <!-- Footer -->
@@ -166,8 +160,6 @@
 
 
 
-
-    </script>
   </body>
 
 </html>

@@ -40,13 +40,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">예약/접종 조회</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">예약하기</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/shot_info">예약/접종 조회</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">알림</a>
             </li>
           </ul>
         </div>
@@ -108,9 +108,8 @@
                                     <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
                                     <button style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
                                 </form>
-                                <form name="modify" action="/shot_info/modify" method="post">
-                                    <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
-                                    <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
+                                <form name="modify" action="/reserve" method="get">
+                                    <input type="hidden" name="hospital_code" value="<%=book_info_1st['hospital_code']%>">
                                     <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 변경</button>
                                 </form>
                             <% } %>
@@ -131,9 +130,8 @@
                                     <input type="hidden" name="shot_code" value="<%=book_info_2st['shot_code']%>">
                                     <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
                                 </form>
-                                <form name="modify" action="/shot_info/modify" method="post">
-                                    <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
-                                    <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
+                                <form name="modify" action="/reserve" method="get">
+                                    <input type="hidden" name="hospital_code" value="<%=book_info_2st['hospital_code']%>">
                                     <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 변경</button>
                                 </form>
                             <% } %>
@@ -205,13 +203,6 @@
             <% } %> 
                 
                 
-            
-            <!-- 돌아가기 버튼 -->
-<!--
-             <form name="main" action="/" method="get">
-                <button class="btn btn-primary btn-xl pull-right" style="background: #18bc9c; width: 120px; height: 50px">돌아가기</button>
-            </form>
--->
             
         </div>
       </section>                
