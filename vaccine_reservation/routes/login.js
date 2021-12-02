@@ -30,7 +30,7 @@ var pool = mysql.createPool({
     user : 'root',
     port:3306,
     database:'vaccine',
-    password : 'password1!'
+    password : '1234'
 });
 
 var pass;
