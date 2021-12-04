@@ -106,7 +106,7 @@
                                 <form name="cancel" action="/shot_info/cancel" method="post">
                                     <input type="hidden" name="order" value="<%=book_info_1st['order']%>">
                                     <input type="hidden" name="shot_code" value="<%=book_info_1st['shot_code']%>">
-                                    <button style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
+                                    <button class="btn btn-primary btn-xl" style="background: #18bc9c; width: 125px; height: 50px">예약 취소</button>
                                 </form>
                                 <form name="modify" action="/reserve" method="get">
                                     <input type="hidden" name="hospital_code" value="<%=book_info_1st['hospital_code']%>">

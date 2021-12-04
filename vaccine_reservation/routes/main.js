@@ -15,7 +15,7 @@ var pool = mysql.createPool({
     user : 'root',
     port: 3306,
     database:'vaccine',
-    password : '1234',
+    password : 'password1!',
     multipleStatements: true
 });
 
@@ -73,7 +73,7 @@ router.get('/', function(req, res, next) {
 
             connection.query(sql, function(err, rows){
                 if (err) console.error("err: " + err);
-                console.log("rows: " + JSON.stringify(rows));
+//                console.log("rows: " + JSON.stringify(rows));
     
                 res.render("main_login", {title: 'main_login', name: req.session.nickname, rows:rows});
                 connection.release();
@@ -91,7 +91,7 @@ router.get('/', function(req, res, next) {
                         group by substring(h.LOCATION, 7, 3)";
             connection.query(sqlForGetLocationGu, function(err, rows){
                 if (err) console.error("err: " + err);
-                console.log("rows: " + JSON.stringify(rows));
+//                console.log("rows: " + JSON.stringify(rows));
     
                 res.render("main_logout", {title: 'main_logout', rows:rows});
                 connection.release();
@@ -104,7 +104,6 @@ router.get('/', function(req, res, next) {
 /* POST show hospital of selected region */
 router.post('/hospital', function(req, res) {
     region = req.query.region;
-    console.log(region);
     
     var page = Number(req.query.page);
     if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌
@@ -132,7 +131,6 @@ router.post('/hospital', function(req, res) {
 /* GET show hospital of selected region */
 router.get('/hospital', function(req, res) {
     region = req.query.region;
-    console.log(region);
     
     var page = Number(req.query.page);
     if (!page) {    // 그냥 boardList로 이동할 경우 1페이지를 보여줌

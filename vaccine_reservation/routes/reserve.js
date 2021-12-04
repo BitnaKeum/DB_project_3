@@ -15,7 +15,7 @@ var pool = mysql.createPool({
     user : 'root',
     port:3306,
     database:'vaccine',
-    password : '1234'
+    password : 'password1!'
 });
 
 
@@ -284,7 +284,6 @@ router.post('/', function(req, res) {
                 res.redirect('/shot_info');
                 connection.release();
             });
-
 
 
     
